@@ -1,65 +1,142 @@
-print("\n=====pythone banka hoşgeldiniz======")
-print("şifre girin ya da kaydolun")
-bakiye=0
-ghakki=3
-zayifsifreler=("123","1234","123456")
+kullanicilar = [
+    {
+        "username": "ebrar",
+        "password": "123456",
+        "bakiye": 100000
+    },
 
-kullaniciadi=input("kullanıcı adınızı giriniz :").lower().strip()
-sifre=input("şifre girin :")
+    {
+        "username": "turan",
+        "password": "123",
+        "bakiye": 150000
+    }
+]
 
-if sifre in zayifsifreler :
-    print("şifre zayıf daha güçlü şifre deneyin !!")
-else:
-    print("kayıt başarılı ")
+giris_yapan_kullanici = None
 
-while ghakki >0 :
-    girisadi=input("giriş için adınızı yazın :")
-    girissifre=input("şifrenizi giriniz : ")
+while True:
 
-    if kullaniciadi == girisadi and sifre == girissifre :
-        print ("giriş başarılı ")
+    print("\n=== BANKA SİSTEMİ ===")
+    print("1 - Kayıt Ol")
+    print("2 - Giriş Yap")
+    print("3 - Çıkış")
 
-        while True:
-            print("\n=====yapmak istediğiniz işlemi seçin=====")
-            print("\n 1-para yatırma ")
-            print("\n 2- para çekme ")
-            print("\n 3-bakiye göster")
-            print("\n q-çıkış  ")
+    secim = input("Seçiminiz: ")
 
-            secim=input("seçimizi giriniz:")          
-            if secim not in ["1","2","3","q"]:
-                print("geçerli seçim yapınız ")
-            elif secim == "1":
-                parayatırma=float(input("yatırmak istediğiniz miktarı giriniz:"))
-                if parayatırma <=0 :    
-                    print("hatalı işlem")
-                else:
-                    bakiye+=parayatırma
-                    print("para yatırma başarılı güncel bakiyeniz ",bakiye)
-                
+    
+    if secim == "1":
 
-            elif secim == "2":
-                cekilmekistenentutar=float(input("çekmek istediğiniz mikatar:"))
+        yeni_username = input("Kullanıcı adı: ")
+        yeni_password = input("Şifre: ")
+
+        kullanici_varmi = False
+
+        for kullanici in kullanicilar:
+
+            if kullanici["username"] == yeni_username:
+                kullanici_varmi = True
+
+        if kullanici_varmi == True:
+            print("Bu kullanıcı adı zaten var")
+
+        else:
+
+            yeni_kullanici = {
+                "username": yeni_username,
+                "password": yeni_password,
+                "bakiye": 0
+            }
+
+            kullanicilar.append(yeni_kullanici)
+
+            print("Kayıt başarılı")
+
+   
+    elif secim == "2":
+
+        username = input("Kullanıcı adı: ")
+        password = input("Şifre: ")
+
+        giris_basarili = False
+
+        for kullanici in kullanicilar:
+
+            if (
+                kullanici["username"] == username
+                and
+                kullanici["password"] == password
+            ):
+
+                giris_basarili = True
+                giris_yapan_kullanici = kullanici
+
+        if giris_basarili:
+            print("Giriş başarılı")
+
             
-                if cekilmekistenentutar <= 0:
-                    print("geçersiz işlem ")
-                elif cekilmekistenentutar > bakiye :
-                    print("bakiye yetersiz ")
+            while True:
+
+                print("\n=== KULLANICI PANELİ ===")
+                print("1 - Bakiye Görüntüle")
+                print("2 - Para Yatır")
+                print("3 - Para Çek")
+                print("4 - Çıkış Yap")
+
+                kullanici_secim = input("Seçiminiz: ")
+
+                
+                if kullanici_secim == "1":
+
+                    print("Bakiyeniz:",
+                          giris_yapan_kullanici["bakiye"])
+
+                
+                elif kullanici_secim == "2":
+
+                    miktar = int(input("Yatırılacak miktar: "))
+
+                    giris_yapan_kullanici["bakiye"] += miktar
+
+                    print("Para yatırıldı")
+                    print("Yeni bakiye:",
+                          giris_yapan_kullanici["bakiye"])
+
+                
+                elif kullanici_secim == "3":
+
+                    miktar = int(input("Çekilecek miktar: "))
+
+                    if miktar > giris_yapan_kullanici["bakiye"]:
+
+                        print("Yetersiz bakiye")
+
+                    else:
+
+                        giris_yapan_kullanici["bakiye"] -= miktar
+
+                        print("Para çekildi")
+                        print("Yeni bakiye:",
+                              giris_yapan_kullanici["bakiye"])
+
+                
+                elif kullanici_secim == "4":
+
+                    print("Çıkış yapıldı")
+                    break
+
                 else:
-                    bakiye -= cekilmekistenentutar
-                    print("işlem başarılı güncel bakiye",bakiye)
-            elif secim == "3":
-                print("güncel bakiyeniz ",bakiye)
+                    print("Geçersiz seçim")
 
-            elif secim == "q":
-                print("çıkış yapılıyor...")
-                break    
-            else:
-                print("geçerli işlem seçiniz ")
-        break 
+        else:
+            print("Kullanıcı adı veya şifre yanlış")
+
+    
+    elif secim == "3":
+
+        print("Program kapatıldı")
+        break
+
     else:
-        ghakki -= 1
-        print("hatalı giriş kalan hak:", ghakki)
+        print("Geçersiz seçim")
 
-        if ghakki == 0:
-            print("kart bloke edildi") 
+        None
