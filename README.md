@@ -1,11 +1,14 @@
-🏦 Python Banka Uygulaması
+Banka Sistemi - README
+Proje Hakkında
 
-Bu proje, Python ile yapılmış basit bir banka sistemidir.
+Bu proje, Python ile yapılmış basit bir banka sistemi uygulamasıdır.
+Kullanıcılar:
 
-🚀 Özellikler
-Kullanıcı kayıt ve giriş
-3 hatalı giriş hakkı
-Para yatırma
-Para çekme
-Bakiye görüntüleme
-Çıkış
+Kayıt olabilir
+Sisteme giriş yapabilir
+Bakiye görüntüleyebilir
+Para yatırabilir
+Para çekebilir
+Çıkış yapabilir
+
+Mantık tamamen list, dictionary, while, if, for gibi temel Python konularıyla geliştirilmiştir.
